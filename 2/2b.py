@@ -3,16 +3,18 @@ with open('2a.txt', 'r') as file:
 
 h = 0
 d = 0
+a = 0
 
 for i in range(0, len(lines)):
-    a = lines[i].split()
-    a[1] = int(a[1])
-    if a[0] == "forward":
-        h += a[1]
-    elif a[0] == "down":
-        d += a[1]
-    elif a[0] == "up":
-        d -= a[1]
+    w = lines[i].split()
+    w[1] = int(w[1])
+    if w[0] == "forward":
+        h += w[1]
+        d += w[1]*a
+    elif w[0] == "down":
+        a += w[1]
+    elif w[0] == "up":
+        a -= w[1]
 
 print(f"h={h}")
 print(f"d={d}")
