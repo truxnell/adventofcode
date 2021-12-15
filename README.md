@@ -1,6 +1,6 @@
 # My Advent of Code repo
 
-![](https://img.shields.io/badge/day%20📅-14-blue) ![](https://img.shields.io/badge/stars%20⭐-8-yellow) ![](https://img.shields.io/badge/days%20completed-4-red)
+![](https://img.shields.io/badge/day%20📅-15-blue) ![](https://img.shields.io/badge/stars%20⭐-10-yellow) ![](https://img.shields.io/badge/days%20completed-5-red)
 
 **Warning**: Suboptimal code ahead!
 
