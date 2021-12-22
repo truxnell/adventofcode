@@ -1,3 +1,4 @@
 pytest
 pytest-aoc
 numpy
+pillow
