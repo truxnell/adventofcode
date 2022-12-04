@@ -1,6 +1,7 @@
 
 from typing import List
 
+
 def rate_round(opponent:str,myself:str, alternate=False) -> int:
 
     opp=ord(opponent)-65

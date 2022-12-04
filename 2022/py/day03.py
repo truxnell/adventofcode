@@ -1,5 +1,6 @@
 from typing import List
 
+
 def day03a(rucksack:List): 
 
     score=0
