@@ -1,15 +1,14 @@
-
 from typing import List
 
 
-def rate_round(opponent:str,myself:str, alternate=False) -> int:
+def rate_round(opponent: str, myself: str, alternate=False) -> int:
 
-    opp=ord(opponent)-65
-    me=ord(myself)-88
+    opp = ord(opponent) - 65
+    me = ord(myself) - 88
 
-    rating=me-opp
-    if rating<0:
-        rating+=3
+    rating = me - opp
+    if rating < 0:
+        rating += 3
 
     match rating:
         case 0:
@@ -22,47 +21,53 @@ def rate_round(opponent:str,myself:str, alternate=False) -> int:
             print(f"{opp} - {me}")
             raise Exception
 
-def lookup_shape(opponent:str,myself:str):
 
-    answers={
-            "AX": "Z",
-            "AY": "X",
-            "AZ": "Y",
-            "BX": "X",
-            "BY": "Y",
-            "BZ": "Z",
-            "CX": "Y",
-            "CY": "Z",
-            "CZ": "X",
-            }
+def lookup_shape(opponent: str, myself: str):
 
-    return answers[opponent+myself]
+    answers = {
+        "AX": "Z",
+        "AY": "X",
+        "AZ": "Y",
+        "BX": "X",
+        "BY": "Y",
+        "BZ": "Z",
+        "CX": "Y",
+        "CY": "Z",
+        "CZ": "X",
+    }
 
-def day02a(guide:List,alternate=False): 
+    return answers[opponent + myself]
 
-    score=0
-    
+
+def day02a(guide: List, alternate=False):
+
+    score = 0
+
     for round in guide:
 
         opp, me = round.split(" ")
         if alternate:
-            me=lookup_shape(opp,me)
-        score+=ord(me)-87
-        score+= rate_round(opp,me,alternate)
+            me = lookup_shape(opp, me)
+        score += ord(me) - 87
+        score += rate_round(opp, me, alternate)
 
     return score
 
 
-ex=["A Y","B X","C Z"]
+ex = ["A Y", "B X", "C Z"]
+
 
 def test_02_ex1a():
     assert day02a(ex) == 15
 
+
 def test_02_ex1b():
-    assert day02a(ex,True) == 12
+    assert day02a(ex, True) == 12
+
 
 def test_02a(day02_lines):
     assert day02a(day02_lines) == 15691
 
+
 def test_02b(day02_lines):
-    assert day02a(day02_lines,True) == 12989
+    assert day02a(day02_lines, True) == 12989
