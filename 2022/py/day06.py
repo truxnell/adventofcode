@@ -3,7 +3,12 @@ from aocd import get_data
 
 def day06(signal: str, length=4) -> int:
 
-    return [i for i in range(0,len(signal)-length) if len(set(signal[i:i+length]))==length][0]+length
+    return [
+        i
+        for i in range(0, len(signal) - length)
+        if len(set(signal[i : i + length])) == length
+    ][0] + length
+
 
 ex = "bvwbjplbgvbhsrlpgdmjqwftvncz"
 ex2 = "mjqjpqmgbljsphdztnvjfqwrcgsmlb"
