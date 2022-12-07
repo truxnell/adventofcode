@@ -47,6 +47,8 @@ class Storage:
         self.cwd+="/"
         self.cwd+=path
 
+    def add_file(self,path:str):
+
 
 
 def solve_puzzle(puzzle: str, part_a=True) -> int:
