@@ -113,6 +113,10 @@ def solve_puzzle(puzzle: str, part_a=True) -> int:
     return dirs[0]
 
 
+if __name__ == "__main__":
+    print(solve_puzzle(EXAMPLE))
+
+
 def test_examples_pt_a():
     assert solve_puzzle(EXAMPLE) == 95437
 

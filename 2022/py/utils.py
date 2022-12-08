@@ -1,3 +1,6 @@
+# pylint: disable=W1401
+import re
+
 from aocd import get_data
 
 
@@ -27,5 +30,10 @@ class AocdPuzzle:
         return [s.split() for s in self.raw.split()]
 
     def number_grid(self):
-        """return a grid of numbers."""
+        """Return a grid of numbers."""
         return [[int(n) for n in row] for row in self.raw.split()]
+
+
+def num_from_string(inp: str):
+    """Extract numbers from a string"""
+    return re.findall("[-+]?[.]?[\d]+(?:,\d\d\d)*[\.]?\d*(?:[eE][-+]?\d+)?", inp)
