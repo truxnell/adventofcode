@@ -17,9 +17,9 @@ class AocdPuzzle:
     def lines(self, strip=False):
         """return a list of lines.  Stripped if strip=True"""
         if strip:
-            return [s.strip() for s in self.raw.split()]
+            return [s.strip() for s in self.raw.splitlines()]
 
-        return list(s for s in self.raw.split())
+        return list(s for s in self.raw.splitlines())
 
     def numbers(self):
         """return a list of numbers."""
