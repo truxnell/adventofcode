@@ -100,6 +100,11 @@ def solve_puzzle(puzzle: str, part_a=True) -> int:
     return forest.max_scenic_score()
 
 
+if __name__ == "__main__":
+
+    print(solve_puzzle(EXAMPLE))
+
+
 def test_examples_pt_a():
     assert solve_puzzle(EXAMPLE) == 21
 
