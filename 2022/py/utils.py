@@ -37,3 +37,9 @@ class AocdPuzzle:
 def num_from_string(inp: str):
     """Extract numbers from a string"""
     return re.findall("[-+]?[.]?[\d]+(?:,\d\d\d)*[\.]?\d*(?:[eE][-+]?\d+)?", inp)
+
+
+def chunks(string: str, num: int) -> str:
+    """Produce `num`-character chunks from `string`."""
+    for i in range(0, len(string), num):
+        yield string[i : i + num]
