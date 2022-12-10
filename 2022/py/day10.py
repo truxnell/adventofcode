@@ -165,7 +165,7 @@ class Register:
 
     def add_op(self, number: int) -> None:
 
-        for i in range(self.cycle_speed - 1):
+        for _ in range(self.cycle_speed - 1):
             self.ops.append(0)
         self.ops.append(number)
 

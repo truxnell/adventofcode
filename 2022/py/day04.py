@@ -14,7 +14,7 @@ def day04a(jobs: List, alternate=False):
             if job1.issubset(job2) or job2.issubset(job1):
                 count += 1
         else:
-            if list(job1&job2):
+            if list(job1 & job2):
                 count += 1
 
     return count
@@ -66,11 +66,12 @@ def test_04_ex1a():
 
 
 def test_04_ex1b():
-    assert day04a(ex,True) == 4
+    assert day04a(ex, True) == 4
+
 
 def test_04a(day04_lines):
     assert day04a(day04_lines) == 576
 
 
 def test_04b(day04_lines):
-    assert day04a(day04_lines,True) == 905
+    assert day04a(day04_lines, True) == 905
