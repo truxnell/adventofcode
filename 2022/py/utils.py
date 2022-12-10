@@ -35,7 +35,11 @@ class AocdPuzzle:
 
 
 def num_from_string(inp: str):
-    """Extract numbers from a string"""
+    """
+    Extract numbers from a string
+    >>> num_from_string("200 units of 67")
+    ['200', '67']
+    """
     return re.findall("[-+]?[.]?[\d]+(?:,\d\d\d)*[\.]?\d*(?:[eE][-+]?\d+)?", inp)
 
 
