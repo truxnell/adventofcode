@@ -1,3 +1,5 @@
+import argparse
+
 from utils import AocdPuzzle
 
 EXAMPLE = []
@@ -13,20 +15,22 @@ def solve_puzzle(puzzle: str, part_a=True) -> int:
 
 if __name__ == "__main__":
 
-    print(solve_puzzle(AocdPuzzle(year=YEAR, day=DAY).lines(), part_a=False))
+    parser = argparse.ArgumentParser(
+        description=f"Advent of code for day {DAY}, December {YEAR}"
+    )
 
+    parser.add_argument("-s", "--solve", help="Submit solution", required=True)
+    args = vars(parser.parse_args())
 
-# def test_examples_pt_a():
-#     assert solve_puzzle(EXAMPLE) == 0
-#
-#
-# def test_pt_a():
-#     assert solve_puzzle(AocdPuzzle(year=YEAR, day=DAY).lines()) == 0
-#
-#
-# def test_examples_pt_b():
-#     assert solve_puzzle(EXAMPLE, False) == 0
-#
-#
-# def test_pt_b():
-#     assert solve_puzzle(AocdPuzzle(year=YEAR, day=DAY).lines(), False) == 0
+    print(f"Advent of code for day {DAY}, December {YEAR}\n")
+
+    print("Part 1")
+    answer_a = solve_puzzle(AocdPuzzle(year=YEAR, day=DAY).lines())
+    print(answer_a)
+
+    # print("\nPart 2")
+    # answer_a=solve_puzzle(AocdPuzzle(year=YEAR, day=DAY,part_a=False).lines())
+    # print(answer_a)
+
+    if args["solve"].lower() == "a":
+        AocdPuzzle.submit_answer(answer_a, YEAR, DAY)

@@ -1,14 +1,14 @@
 # pylint: disable=W1401
 import re
 
-from aocd import get_data
+import aocd
 
 
 class AocdPuzzle:
     def __init__(self, year: int, day: int) -> None:
         if not year or not day:
             raise Exception("Missing day or year")
-        self.raw = get_data(year=year, day=day)
+        self.raw = aocd.get_data(year=year, day=day)
 
     def text(self):
         """return stripped puzzle input for year, day"""
@@ -33,14 +33,21 @@ class AocdPuzzle:
         """Return a grid of numbers."""
         return [[int(n) for n in row] for row in self.raw.split()]
 
+    def submit_answer(self, answer: str, year: int, day: int) -> str:
+        """Submit an answer for a year/day"""
+        return aocd.submit(answer, day=day, year=year)
+
 
 def num_from_string(inp: str):
     """
     Extract numbers from a string
     >>> num_from_string("200 units of 67")
-    ['200', '67']
+    [200, 67]
     """
-    return re.findall("[-+]?[.]?[\d]+(?:,\d\d\d)*[\.]?\d*(?:[eE][-+]?\d+)?", inp)
+    return [
+        int(i)
+        for i in re.findall("[-+]?[.]?[\d]+(?:,\d\d\d)*[\.]?\d*(?:[eE][-+]?\d+)?", inp)
+    ]
 
 
 def chunks(string: str, num: int) -> str:

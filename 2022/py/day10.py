@@ -217,7 +217,15 @@ class CPU:
 
 
 def solve_puzzle(puzzle: str, part_a=True) -> int:
+    """Solve an advent of code puzzle
 
+    Args:
+        puzzle (str): Puzzle input
+        part_a (bool, optional): If we are solving part A or B. Defaults to True.
+
+    Returns:
+        int: Solution
+    """
     cpu = CPU()
     cpu.load_program(puzzle)
     breaks = range(20, 2000, 40)
@@ -252,6 +260,8 @@ if __name__ == "__main__":
     for chunk in chunks(lcd_disp, 40):
         print(chunk)
 
+    solve_puzzle()
+
 
 def test_examples_pt_a():
     assert solve_puzzle(EXAMPLE) == 13140
@@ -260,6 +270,8 @@ def test_examples_pt_a():
 def test_pt_a():
     assert solve_puzzle(AocdPuzzle(year=YEAR, day=DAY).lines()) == 13180
 
+def test_a():
+    assert solve_puzzle
 
 #
 #

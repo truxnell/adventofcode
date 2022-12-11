@@ -1,5 +1,5 @@
 pytest
-pytest-aoc
 numpy
 pillow
 advent-of-code-data
+argparse
