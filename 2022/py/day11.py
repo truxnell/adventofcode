@@ -7,7 +7,6 @@ from utils import AocdPuzzle, num_from_string
 
 YEAR = 2022
 DAY = 11
-
 EXAMPLE = [
     "Monkey 0:",
     "  Starting items: 79, 98",
@@ -181,3 +180,19 @@ if __name__ == "__main__":
 
         if args["solve"]:
             AocdPuzzle.submit_answer("", answer_b, YEAR, DAY)
+
+
+def test_examples_pt_a():
+    assert solve_puzzle(EXAMPLE) == 10605
+
+
+def test_pt_a():
+    assert solve_puzzle(AocdPuzzle(year=YEAR, day=DAY).lines()) == 55930
+
+
+def test_examples_pt_b():
+    assert solve_puzzle(EXAMPLE, False) == 0
+
+
+def test_pt_b():
+    assert solve_puzzle(AocdPuzzle(year=YEAR, day=DAY).lines(), False) == 14636993466
