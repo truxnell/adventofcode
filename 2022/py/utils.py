@@ -1,7 +1,7 @@
 # pylint: disable=W1401
-import math
+import logging
 import re
-from logging import StringTemplateStyle
+import sys
 from typing import Generator, List
 
 import aocd
@@ -89,3 +89,70 @@ def value_to_str(integer: int, a_is_one: bool = True) -> str:
     'a'
     """
     return chr(integer + ord("a") - a_is_one)
+
+
+class CustomFormatter(logging.Formatter):
+    """Logging colored formatter, adapted from https://stackoverflow.com/a/56944256/3638629"""
+
+    grey = "\x1b[38;21m"
+    blue = "\x1b[38;5;39m"
+    yellow = "\x1b[38;5;226m"
+    red = "\x1b[38;5;196m"
+    bold_red = "\x1b[31;1m"
+    reset = "\x1b[0m"
+
+    def __init__(self, fmt):
+        super().__init__()
+        self.fmt = fmt
+        self.formats = {
+            logging.DEBUG: self.grey + self.fmt + self.reset,
+            logging.INFO: self.blue + self.fmt + self.reset,
+            logging.WARNING: self.yellow + self.fmt + self.reset,
+            logging.ERROR: self.red + self.fmt + self.reset,
+            logging.CRITICAL: self.bold_red + self.fmt + self.reset,
+        }
+
+    def format(self, record):
+        log_fmt = self.formats.get(record.levelno)
+        formatter = logging.Formatter(log_fmt)
+        return formatter.format(record)
+
+
+def setup_logging(level: str):
+
+    log = logging.getLogger(__name__)
+    log.propagate = False
+
+    fmt = "%(asctime)s | %(levelname)8s | %(message)s"
+
+    stdout_handler = logging.StreamHandler()
+    stdout_handler.setLevel(logging.DEBUG)
+    stdout_handler.setFormatter(CustomFormatter(fmt))
+
+    file_handler = logging.FileHandler(f"{sys.argv[0]}.log")
+    file_handler.setLevel(logging.DEBUG)
+
+    # logging.basicConfig(level=level)
+
+    log.addHandler(stdout_handler)
+    log.addHandler(file_handler)
+    log.debug("Logging setup")
+
+    levels: dict = {
+        "critical": logging.CRITICAL,
+        "error": logging.ERROR,
+        "warn": logging.WARNING,
+        "warning": logging.WARNING,
+        "info": logging.INFO,
+        "debug": logging.DEBUG,
+    }
+
+    if level is None:
+        raise ValueError(
+            f"log level given: {level}"
+            f" -- must be one of: {' | '.join(levels.keys())}"
+        )
+
+    log.setLevel(logging.DEBUG)
+
+    return log
