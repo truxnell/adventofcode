@@ -1,5 +1,6 @@
 import argparse
 import ast
+from functools import cmp_to_key
 from itertools import zip_longest
 from typing import List
 
@@ -44,24 +45,24 @@ log = setup_logging("debug")
 def check_order(left: List, right: List) -> int:
     """
     Returns:
-        0: False
-        1: True
-        -1: Even-no result, continue searching
+        1: False
+        0: True
+        0: Even-no result, continue searching
     """
     if len(right) == 0 and len(left) > 0:
-        return 0
+        return 1
 
     if len(right) > 0 and len(left) == 0:
-        return 1
+        return -1
 
     for i in range(max(len(left), len(right))):
         if i == len(left) and i <= len(right):
-            return 1
+            return -1
 
         if i == len(right) and i <= len(left):
-            return 0
-        if i == len(right) == len(left):
             return 1
+        if i == len(right) == len(left):
+            return -1
 
         lft = left[i]
         rgt = right[i]
@@ -73,43 +74,53 @@ def check_order(left: List, right: List) -> int:
                 rgt = [rgt]
         if isinstance(lft, list):
             ret = check_order(lft, rgt)
-            if ret == 0:
-                return 0
             if ret == 1:
                 return 1
+            if ret == -1:
+                return -1
             continue
 
         if lft < rgt:
-            return 1
+            return -1
 
         if lft > rgt:
-            return 0
+            return 1
 
-    return -1
+    return 0
 
 
-def solve_puzzle(puzzle_inp, part_a=True) -> int:
+def solve_puzzle(puzzle_inp: List, part_a=True) -> int:
 
     sum_puzzle = 0
     index = 0
     log.debug("Parsing Puzzle Input")
-    for left, right, _ in zip_longest(
-        puzzle_inp[::3], puzzle_inp[1::3], puzzle_inp[2::3]
-    ):
-        index += 1
-        left = ast.literal_eval(left)
-        right = ast.literal_eval(right)
+    if part_a:
+        for left, right, _ in zip_longest(
+            puzzle_inp[::3], puzzle_inp[1::3], puzzle_inp[2::3]
+        ):
+            index += 1
+            left = ast.literal_eval(left)
+            right = ast.literal_eval(right)
 
-        log.debug(f"{index}; Parsing L:{left}")
-        log.debug(f"{index}; Parsing R:{right}")
-        is_ordered = check_order(left, right)
-        log.debug(f"{index}; Determined order status is {is_ordered}")
-        if is_ordered:
-            sum_puzzle += index
-            log.debug(f"{index}; Adding {index} to total, new total {sum_puzzle}")
+            log.debug(f"{index}; Parsing L:{left}")
+            log.debug(f"{index}; Parsing R:{right}")
+            is_ordered = check_order(left, right)
+            log.debug(f"{index}; Determined order status is {is_ordered}")
+            if is_ordered == -1:
+                sum_puzzle += index
+                log.debug(f"{index}; Adding {index} to total, new total {sum_puzzle}")
 
-    log.debug(f"Adding final answer of {sum_puzzle}")
-    return sum_puzzle
+        log.debug(f"Adding final answer of {sum_puzzle}")
+        return sum_puzzle
+
+    puzzle_inp = [ast.literal_eval(l) for l in puzzle_inp if l]
+
+    puzzle_inp.append([[2]])
+    puzzle_inp.append([[6]])
+
+    puzzle_inp = sorted(puzzle_inp, key=cmp_to_key(check_order))
+
+    return (puzzle_inp.index([[2]]) + 1) * (puzzle_inp.index([[6]]) + 1)
 
 
 if __name__ == "__main__":
@@ -143,7 +154,7 @@ if __name__ == "__main__":
         answer = solve_puzzle(EXAMPLE)
         print(f"Returned: {answer}, solution {ANS_1}, Equality {answer==ANS_1}")
 
-        print("\n Part 1")
+        print("\nPart 1")
         answer_a = solve_puzzle(PUZZLE_INPUT)
         print(answer_a)
 
@@ -156,7 +167,7 @@ if __name__ == "__main__":
         answer = solve_puzzle(EXAMPLE, part_a=False)
         print(f"Returned: {answer}, solution {ANS_2}, Equality {answer==ANS_2}")
 
-        print("\n Part 2")
+        print("\nPart 2")
         answer_b = solve_puzzle(PUZZLE_INPUT, part_a=False)
         print(answer_b)
 
@@ -173,8 +184,8 @@ def test_pt_a():
 
 
 def test_examples_pt_b():
-    assert solve_puzzle(EXAMPLE) == ANS_2
+    assert solve_puzzle(EXAMPLE, False) == ANS_2
 
 
 def test_pt_b():
-    assert solve_puzzle(PUZZLE_INPUT, False) == 0
+    assert solve_puzzle(PUZZLE_INPUT, False) == 24180
