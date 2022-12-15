@@ -89,4 +89,3 @@ def test_examples_pt_b():
 
 def test_pt_b():
     assert solve_puzzle(PUZZLE_INPUT, False) == 0
-           AocdPuzzle.submit_answer("", answer_b, YEAR, DAY)
