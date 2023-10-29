@@ -125,7 +125,7 @@ class FallingSand:
     def print(self, clear: bool = False) -> None:
         if clear:
             os.system("cls" if os.name == "nt" else "clear")
-        for line in grid2d_to_str(self.grid, 0, min(self.lowest_x, 80), 400, 200):
+        for line in grid2d_to_str(self.grid, 0, min(self.lowest_x, 150), 400, 200):
             print(line)
 
 

@@ -10,7 +10,8 @@ YEAR: int = 2022
 DAY: int = 14
 
 EXAMPLE = []
-ANS_1: int = 0
+ANS_1: int = 26
+ANS_1_row: int = 10
 ANS_2: int = 0
 PUZZLE = AocdPuzzle(year=YEAR, day=DAY)
 PUZZLE_INPUT = PUZZLE.lines()
@@ -18,7 +19,7 @@ PUZZLE_INPUT = PUZZLE.lines()
 log = setup_logging("debug")
 
 
-def solve_puzzle(puzzle_inp: List, part_a=True) -> int:
+def solve_puzzle(puzzle_inp: List, row: int, part_a=True) -> int:
 
     return 0
 
@@ -76,7 +77,7 @@ if __name__ == "__main__":
 
 
 def test_examples_pt_a():
-    assert solve_puzzle(EXAMPLE) == ANS_1
+    assert solve_puzzle(EXAMPLE, ANS_1_row) == ANS_1
 
 
 def test_pt_a():
